@@ -57,9 +57,30 @@ genotypeFactor = struct('var', [], 'card', [], 'val', []);
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%  
 
 % Fill in genotypeFactor.var.  This should be a 1-D row vector.
+genotypeFactor.var = [genotypeVarChild, genotypeVarParentOne, genotypeVarParentTwo];
 % Fill in genotypeFactor.card.  This should be a 1-D row vector.
+c = nchoosek(numAlleles, 2) + numAlleles;
+genotypeFactor.card = [c,c,c];
 
-genotypeFactor.val = zeros(1, prod(genotypeFactor.card));
+%genotypeFactor.val = zeros(1, prod(genotypeFactor.card));
+
+%spike
+for i=1:c
+    for j=1:c
+        [X,Y] = meshgrid(genotypesToAlleles(i,:), genotypesToAlleles(j,:));
+        all_combinations = [Y(:) X(:)];
+        g = zeros(1,c);
+        for k=1:length(all_combinations)
+            idx = allelesToGenotypes(all_combinations(k,1),all_combinations(k,2));
+            g(idx) +=1;
+        end
+        g /= sum(g);
+        genotypeFactor.val = [genotypeFactor.val, g]
+    end
+end
+
+
+% end spike
+
 % Replace the zeros in genotypeFactor.val with the correct values.
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
