@@ -43,6 +43,7 @@ sampleFactorList = load('sampleFactorList.mat'); % Comment out this line for tes
 % sampleFactorList = constructGeneticNetwork(pedigree, alleleFreqs, alphaList);
 
 % Testing phenotypeGivenCopiesFactor:
+% phenotypes, assignment 1 maps to having the physical trait, and
 alphaListThree = [0.8; 0.6; 0.1; 0.5; 0.05; 0.01];
 numAllelesThree = 3;
 genotypeVarMotherCopy = 1;
