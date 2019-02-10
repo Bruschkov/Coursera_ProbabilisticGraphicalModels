@@ -8,6 +8,8 @@
 %
 %   See also FactorMarginalization.m, IndexToAssignment.m, and
 %   AssignmentToIndex.m
+%
+% Copyright (C) Daphne Koller, Stanford University, 2012
 
 function C = FactorProduct(A, B)
 
@@ -48,7 +50,7 @@ C.card(mapB) = B.card;
 
 % Initialize the factor values of C:
 %   prod(C.card) is the number of entries in C
-C.val = zeros(1, prod(C.card));
+C.val = zeros(1,prod(C.card));
 
 % Compute some helper indices
 % These will be very useful for calculating C.val
@@ -61,8 +63,7 @@ indxB = AssignmentToIndex(assignments(:, mapB), B.card);
 % YOUR CODE HERE:
 % Correctly populate the factor values of C
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-vals = A.val(indxA) .* B.val(indxB);
-C = SetValueOfAssignment(C, assignments, vals);
+C.val = A.val(indxA) .* B.val(indxB);
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 end
