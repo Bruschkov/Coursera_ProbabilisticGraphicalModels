@@ -16,8 +16,24 @@ function EUF = CalculateExpectedUtilityFactor( I )
   %
   % YOUR CODE HERE...
   %
-  % dummy to pass submit
-  EUF = struct('var', [1], 'card', [2], 'val', [7, 3]);
+  F = [I.RandomFactors I.DecisionFactors];
+  U = I.UtilityFactors(1);
+  D = I.DecisionFactors(1);
+  vars = [];
+  G = [I.RandomFactors, U];
+  for i=1:length(G)
+    vars = [vars G(i).var];
+  end
+  W = setdiff(vars, D.var);
+  M = VariableElimination([I.RandomFactors U], W);
+  
+  mu = M(1);
+  if (length(M) > 1)
+    for i=2:length(M)
+      mu = FactorProduct(mu, M(i));
+    end
+  end
+  EUF = mu;
   %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%  
 
 
