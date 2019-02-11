@@ -20,6 +20,25 @@ function EU = SimpleCalcExpectedUtility(I)
   %
   % YOUR CODE HERE
   %
+
+  % As per the generalized Expected Utility-Formula From the Lecture Slides
+  D = I.DecisionFactors(1);
+  vars = [];
+  G = [I.RandomFactors, U];
+  for i=1:length(G)
+    vars = [vars G(i).var];
+  end
+  W = setdiff(vars, D.var);
+  M = VariableElimination([I.RandomFactors U], W);
+  
+  mu = M(1);
+  if (length(M) > 1)
+    for i=2:length(M)
+      mu = FactorProduct(mu, M(i));
+    end
+  end
+
+  EU = sum(FactorProduct(D, mu).val)
   %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
  
