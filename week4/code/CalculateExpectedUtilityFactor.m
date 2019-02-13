@@ -16,6 +16,7 @@ function EUF = CalculateExpectedUtilityFactor( I )
   %
   % YOUR CODE HERE...
   %
+  % As per the generalized Expected Utility-Formula From the Lecture Slides
   F = [I.RandomFactors I.DecisionFactors];
   U = I.UtilityFactors(1);
   D = I.DecisionFactors(1);

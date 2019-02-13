@@ -30,14 +30,14 @@ end
 % allEU => [7.3000, 3.8000]
 
 % Get EUF...
-%euf = CalculateExpectedUtilityFactor(I1);
+euf = CalculateExpectedUtilityFactor(I1);
 % PrintFactor(euf) =>
 % 2	
 % 1	7.300000
 % 2	3.800000
 
-%[meu optdr] = OptimizeMEU(I1)
-%[meu optdr] = OptimizeWithJointUtility(I1)
+[meu optdr] = OptimizeMEU(I1)
+[meu optdr] = OptimizeWithJointUtility(I1)
 %[meu optdr] = OptimizeLinearExpectations(I1)
 % OUTPUT
 % All should have the same results: 
@@ -82,14 +82,14 @@ end
 % allEU => [7.5000, 1.0000]
 
 % Get EUF...
-%euf = CalculateExpectedUtilityFactor(I2);
+euf = CalculateExpectedUtilityFactor(I2);
 % PrintFactor(euf) =>
 % 2	
 % 1	7.500000
 % 2	1.000000
 
-%[meu optdr] = OptimizeMEU(I2)
-%[meu optdr] = OptimizeWithJointUtility(I2)
+[meu optdr] = OptimizeMEU(I2)
+[meu optdr] = OptimizeWithJointUtility(I2)
 %[meu optdr] = OptimizeLinearExpectations(I2)
 % OUTPUT
 % meu => 7.5000
@@ -129,7 +129,7 @@ for i=1:length(AllDs)
 end
 
 % Get EUF...
-%euf = CalculateExpectedUtilityFactor(I3);
+euf = CalculateExpectedUtilityFactor(I3);
 % PrintFactor(euf) =>
 % 1	2	
 % 1	1	5.250000
@@ -137,8 +137,8 @@ end
 % 1	2	0.700000
 % 2	2	0.300000
 
-%[meu optdr] = OptimizeMEU(I3)
-%[meu optdr] = OptimizeWithJointUtility(I3)
+[meu optdr] = OptimizeMEU(I3)
+[meu optdr] = OptimizeWithJointUtility(I3)
 %[meu optdr] = OptimizeLinearExpectations(I3)
 
 % OUTPUT
@@ -172,7 +172,7 @@ I4.RandomFactors = [X1 X3];
 I4.DecisionFactors = D;
 I4.UtilityFactors = [U1 U2];
 
-%[meu optdr] = OptimizeWithJointUtility(I4)
+[meu optdr] = OptimizeWithJointUtility(I4)
 %[meu optdr] = OptimizeLinearExpectations(I4)
 % OUTPUT
 % meu => 11
