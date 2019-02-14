@@ -25,10 +25,38 @@ function [MEU OptimalDecisionRule] = OptimizeLinearExpectations( I )
   % to D's parents, and 0 otherwise.  Note that when D has no parents, it is
   % a degenerate case we can handle separately for convenience.
   %
-    %dummy to pass submit
-    MEU = 0;
-    OptimalDecisionRule = struct('var', [1], 'card', [2], 'val', [7, 3]);
-    % /dummy
+  
+  U = I.UtilityFactors;
+  mus = [];
+  for i=1:length(U)
+    I.UtilityFactors = U(i);
+    mus = [mus CalculateExpectedUtilityFactor(I)];
+  end
+  
+  mu = mus(1);
+  if (length(mus) > 1)
+    mu = FactorSum(mu, mus(i));
+  end
+
+  
+  D = I.DecisionFactors(1);
+  D.val = zeros(1, prod(D.card));
+
+  % case: D has no parents
+  if (length(D.var) == 1)
+    [_, idx]=max(mu.val);
+    D.val(idx) = 1;
+  % case: D has n >= 1 parents
+  else
+    k = prod(D.card(2:end));
+    for i=0:D.card(1)-1
+      m = mu.val(1+i*k:k+i*k);
+      [_, idx]=max(m);
+      D.val(idx+i*k) = 1;
+    end
+  end
+  OptimalDecisionRule = D;
+  MEU = sum(FactorProduct(mu,D).val);
   %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
   
 
